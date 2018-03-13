@@ -1,19 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import {PrettyJsonModule} from 'angular2-prettyjson'
 
-import { AppComponent, AbcComponent, XyzComponent, Service } from './app.component';
+import { AppComponent } from './app.component';
+import { UsersService } from './users.service'
 
 
 @NgModule({
   declarations: [
-    AppComponent, AbcComponent, XyzComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    PrettyJsonModule
+    PrettyJsonModule,
+    HttpModule
   ],
-  providers: [Service],
+  providers: [UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
