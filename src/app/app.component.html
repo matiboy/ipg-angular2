@@ -1,6 +1,6 @@
 <div style="text-align:center">
   <button #prev [disabled]="false">Prev</button>
-  <span>{{(page$ | async)}}</span>
+  <span>{{page$ | async}}</span>
   <button #next [disabled]="false">Next</button>
   <table>
     <thead>
@@ -11,11 +11,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users$ | async as users; index as i">
+      <!-- <tr *ngFor="let user of users$ | async as users; index as i">
         <td>{{i+1}}</td>
         <td>{{user.first_name}}</td>
         <td>{{user.last_name}}</td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
 </div>

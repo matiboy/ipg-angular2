@@ -12,9 +12,5 @@ export class UsersService {
   }
 
   getUsers(page=1) {
-    return this.http.get(`${BASE_URL}users?page=${page}`)
-      .map(resp => resp.json())
-      .do(resp => console.log(resp))
-      .map(data => data.data)
   }
 }
