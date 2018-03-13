@@ -11,11 +11,11 @@
       </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let user of users$ | async as users; index as i">
-        <td>{{i+1}}</td>
+      <tr *ngFor="let user of users$ | async as users; index as i">
+        <td>{{i+1}} / {{users.length}}</td>
         <td>{{user.first_name}}</td>
         <td>{{user.last_name}}</td>
-      </tr> -->
+      </tr>
     </tbody>
   </table>
 </div>
