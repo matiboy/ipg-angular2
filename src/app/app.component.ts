@@ -14,7 +14,7 @@ export class AppComponent {
   subscriptions: Subscription[] = []
   users = []
   page$ = new BehaviorSubject(1)
-  users$ = new BehaviorSubject<User[]>([])
+  users$ = this.page$.switchMap(pageNumber => this.usersService.getUsers(pageNumber))
   @ViewChild('prev') previousButton: ElementRef
   @ViewChild('next') nextButton: ElementRef
   constructor(private usersService: UsersService) {
@@ -26,16 +26,10 @@ export class AppComponent {
           .map(_ => 1),
         Observable.fromEvent(this.previousButton.nativeElement, 'click')
           .map(_ => -1)
-      ).scan((acc, value) => acc + value, 0)
+      ).scan((acc, value) => acc + value, 1)
     .subscribe(this.page$))
 
-    this.subscriptions.push(
-      this.page$.switchMap(pageNumber => this.usersService.getUsers(pageNumber))
-      .subscribe(this.users$)
-    )
-
     /*
-      Observable.of(1)
       1x
       nextClick:
       ------- e ----------- e ----
