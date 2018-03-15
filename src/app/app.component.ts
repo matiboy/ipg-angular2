@@ -23,9 +23,9 @@ export class AppComponent {
     this.subscriptions.push(
       Observable.merge(
         Observable.fromEvent(this.nextButton.nativeElement, 'click')
-          .map(_ => 1),
+          .mapTo(1),
         Observable.fromEvent(this.previousButton.nativeElement, 'click')
-          .map(_ => -1)
+          .mapTo(-1)
       // Don't go below page 1
       ).scan((acc, value) => Math.max(acc + value, 1), 1)
       // Don't emit if value is unchanged (when we're on page 1)
