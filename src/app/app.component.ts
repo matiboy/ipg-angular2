@@ -14,10 +14,20 @@ export class AppComponent {
   subscriptions: Subscription[] = []
   users = []
   page$ = new BehaviorSubject(1)
-  users$ = this.page$.switchMap(pageNumber => this.usersService.getUsers(pageNumber))
+  users$: Observable<User[]>
+  loading = true
   @ViewChild('prev') previousButton: ElementRef
   @ViewChild('next') nextButton: ElementRef
   constructor(private usersService: UsersService) {
+  }
+  ngAfterContentInit() {
+    this.users$ = this.page$.switchMap(pageNumber => this.usersService.getUsers(pageNumber))
+    Observable.merge(
+      this.page$.mapTo(true),
+      this.users$.mapTo(false),
+    )
+    .distinctUntilChanged()
+    .subscribe(x => this.loading = x)
   }
   ngAfterViewInit() {
     this.subscriptions.push(
@@ -29,7 +39,7 @@ export class AppComponent {
       // Don't go below page 1
       ).scan((acc, value) => Math.max(acc + value, 1), 1)
       // Don't emit if value is unchanged (when we're on page 1)
-      .distinctUntilChanged()
+      // .distinctUntilChanged()
     .subscribe(this.page$))
 
     /*

@@ -1,8 +1,9 @@
 <div style="text-align:center">
   <button #prev [disabled]="false">Prev</button>
-  <span>{{page$ | async}}</span>
+  <span>{{page$ | async}} {{loading}}</span>
   <button #next [disabled]="false">Next</button>
-  <table>
+  <div [hidden]="!loading">Loading....</div>
+  <table [hidden]="loading">
     <thead>
       <tr>
         <th>#</th>
